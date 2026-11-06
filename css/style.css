@@ -391,8 +391,8 @@ ul, ol { padding: 0; list-style: none; }
 }
 .piece--framed .label { margin-top: 28px; }
 .label__brand { font-size: var(--t-12); font-weight: 600; line-height: 1.6; }
-.label__title { font-family: var(--f-serif); font-size: var(--t-18); line-height: 1.35; }
-.label__detail { font-size: 12.5px; line-height: 1.6; color: var(--ink-2); }
+.label__title { font-family: var(--f-serif); font-size: clamp(var(--t-18), 1.45vw, var(--t-21)); line-height: 1.35; }
+.label__detail { font-size: 13px; line-height: 1.6; color: var(--ink-2); }
 .label__cta { margin-top: 8px; font-size: 12px; font-weight: 500; color: var(--bonnet-ink); }
 
 @media (hover: hover) {
@@ -675,10 +675,6 @@ ul, ol { padding: 0; list-style: none; }
   mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent), linear-gradient(180deg, transparent, #000 9%, #000 91%, transparent);
   mask-composite: intersect;
 }
-@media (hover: hover) {
-  .product--studio > a:hover .product__media img { transform: translateY(-6px) scale(1.02); }
-  .product--photo > a:hover .product__media img { transform: scale(1.04); }
-}
 .product__tag {
   position: absolute; left: 0; top: 0; z-index: 1;
   padding: 5px 9px;
@@ -696,7 +692,7 @@ ul, ol { padding: 0; list-style: none; }
   .product--hover > a:focus-visible .product__media .product__alt { opacity: 1; transform: none; }
 }
 .product .label { margin-top: 16px; }
-.product__price { margin-top: 8px; font-family: var(--f-wide); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.product__price { margin-top: 10px; font-size: var(--t-14); font-weight: 500; font-variant-numeric: tabular-nums; }
 .product__price s { margin-right: 6px; color: var(--ink-2); }
 .product__price em { margin-left: 4px; font-style: normal; color: var(--bonnet-ink); }
 
