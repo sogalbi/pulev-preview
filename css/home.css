@@ -1,0 +1,234 @@
+/* ==========================================================================
+   PULEV — Home page
+   Builds on style.css (tokens, header, footer, labels, section heads).
+   Exhibition vocabulary: Now Showing → Upcoming → The Shop.
+   ========================================================================== */
+
+.page-home #main { padding-top: var(--header-h); }
+
+/* ==========================================================================
+   Now Showing — brand campaigns, one at a time
+   ========================================================================== */
+.showing {
+  --media-w: min(48vw, calc((100svh - var(--header-h)) * .76));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--media-w);
+  grid-template-areas: "text media";
+  min-height: calc(100svh - var(--header-h));
+  border-bottom: 1px solid var(--line);
+}
+
+.showing__media { grid-area: media; position: relative; overflow: hidden; background: var(--wall-deep); }
+.showing__slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 1.2s var(--ease), visibility 0s linear 1.2s; }
+.showing__slide.is-active { opacity: 1; visibility: visible; z-index: 1; transition: opacity 1.2s var(--ease), visibility 0s; }
+.showing__slide img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transform: scale(1.06); transition: transform 7.5s linear; }
+.showing__slide.is-active img { transform: scale(1); }
+
+.showing__text {
+  grid-area: text;
+  display: flex; flex-direction: column;
+  padding: clamp(28px, 4vw, 56px) var(--gutter) clamp(28px, 3.4vw, 44px);
+}
+.showing__count { font-size: var(--t-14); font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.showing__count b { font-weight: 500; color: var(--ink); }
+
+.showing__titles { flex: 1; display: grid; align-items: center; padding: 40px 0; }
+.showing__title {
+  grid-area: 1 / 1;
+  justify-self: start;
+  opacity: 0; transform: translateY(18px); visibility: hidden;
+  transition: opacity .8s var(--ease), transform .8s var(--ease), visibility 0s linear .8s;
+}
+.showing__title.is-active { opacity: 1; transform: none; visibility: visible; transition-delay: .25s, .25s, 0s; }
+.showing__brand {
+  display: block;
+  font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(2.75rem, 5.6vw, 6.25rem); line-height: 1; letter-spacing: -.015em;
+  overflow-wrap: anywhere;
+}
+.showing__kr {
+  display: inline-flex; gap: .5em; margin-top: 26px; padding-bottom: 4px;
+  font-size: 14px; font-weight: 500; letter-spacing: .02em;
+  border-bottom: 1px solid currentColor;
+  transition: color .3s;
+}
+.showing__title:hover .showing__kr { color: var(--bonnet-ink); }
+
+.showing__foot { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.showing__controls { display: flex; align-items: center; gap: 8px; }
+.showing__btn {
+  width: 44px; height: 44px; display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: 50%;
+  transition: border-color .3s, background-color .3s;
+}
+.showing__btn:hover { border-color: var(--ink); }
+.showing__btn svg { width: 16px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.2; }
+
+
+.showing__next { font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+
+/* tablet & phone: photo first, words below */
+@media (max-width: 1099px) {
+  .showing { grid-template-columns: minmax(0, 1fr); grid-template-areas: "media" "text"; min-height: 0; }
+  .showing__media { aspect-ratio: 1; max-height: 72svh; width: 100%; }
+  .showing__titles { padding: 28px 0 32px; }
+}
+@media (max-width: 767px) {
+  .showing__media { aspect-ratio: 4 / 5; max-height: none; }
+  .showing__text { padding-top: 22px; padding-bottom: 28px; }
+  .showing__foot { grid-template-columns: auto minmax(0, 1fr); }
+  .showing__next { display: none; }
+  .showing__kr { margin-top: 16px; }
+}
+
+/* ==========================================================================
+   Upcoming — launch calendar
+   ========================================================================== */
+.launches { background: var(--paper); padding: clamp(96px, 12vw, 180px) 0 clamp(96px, 11vw, 168px); }
+
+.launch-list {
+  width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--col-gap);
+}
+.launch__media { aspect-ratio: 4 / 3; overflow: hidden; background: var(--wall-deep); }
+.launch__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+
+.launch__body { display: grid; justify-items: start; gap: 8px; padding-top: 24px; }
+.launch__date {
+  font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(2.6rem, 3.8vw, 3.5rem); line-height: 1; letter-spacing: -.01em;
+}
+.launch__date span {
+  display: block; margin-top: 12px;
+  font-family: var(--f-body); font-size: 13px; font-weight: 500; letter-spacing: .02em; color: var(--ink-2);
+}
+.launch__title { margin-top: 6px; font-family: var(--f-kr-text); font-weight: 400; font-size: 19px; line-height: 1.45; }
+.launch__title .label__brand { display: block; margin-bottom: 6px; }
+.launch__status {
+  margin-top: 6px; padding: 3px 11px;
+  font-size: 12px; font-weight: 500;
+  color: var(--bonnet-ink); border: 1px solid currentColor; border-radius: 999px;
+}
+.launch.is-open .launch__status { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.launch__cta { margin-top: 10px; }
+
+
+@media (max-width: 767px) {
+  .launch-list {
+    width: 100%; display: flex; gap: 16px;
+    padding: 0 var(--gutter) 6px;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .launch-list::-webkit-scrollbar { display: none; }
+  .launch { flex: 0 0 82%; scroll-snap-align: start; }
+  .launch__media { aspect-ratio: 4 / 5; }
+}
+
+/* ==========================================================================
+   The Shop — tabs + product grid
+   ========================================================================== */
+.shop { padding: clamp(96px, 12vw, 180px) 0 clamp(96px, 12vw, 180px); }
+
+.shop__tabs {
+  display: flex; gap: clamp(24px, 3.4vw, 56px);
+  margin-bottom: clamp(28px, 3.4vw, 48px);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto; scrollbar-width: none;
+}
+.shop__tabs::-webkit-scrollbar { display: none; }
+.shop__tabs [role="tab"] {
+  position: relative; flex: none;
+  padding: 0 0 18px;
+  font-family: var(--f-kr-text); font-weight: 400; font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  color: var(--ink-2); text-align: left;
+  transition: color .3s;
+}
+.shop__tabs [role="tab"] span {
+  display: block; margin-top: 6px;
+  font-family: var(--f-wide); font-weight: 500; font-size: 12px;
+}
+.shop__tabs [role="tab"]::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+  background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease);
+}
+.shop__tabs [role="tab"]:hover { color: var(--ink); }
+.shop__tabs [role="tab"][aria-selected="true"] { color: var(--ink); }
+.shop__tabs [role="tab"][aria-selected="true"]::after { transform: scaleX(1); }
+
+.shop__panel:focus-visible { outline-offset: 12px; }
+.shop__panel:not([hidden]) { animation: panel-in .7s var(--ease); }
+@keyframes panel-in { from { opacity: 0; transform: translateY(10px); } }
+.shop__note { margin-bottom: clamp(32px, 4vw, 56px); font-size: 14px; color: var(--ink-2); }
+
+/* product cards (.product-grid, .product) live in style.css — shared with the detail page */
+
+.shop__more { margin-top: clamp(48px, 5vw, 72px); }
+
+@media (max-width: 767px) {
+  /* four tabs must fit one phone row: Korean names only */
+  .shop__tabs { gap: 22px; }
+  .shop__tabs [role="tab"] { padding-bottom: 14px; font-size: 1.05rem; }
+  .shop__tabs [role="tab"] span { display: none; }
+}
+
+/* ==========================================================================
+   Browse — categories
+   ========================================================================== */
+.browse { padding: clamp(72px, 8vw, 120px) 0; border-top: 1px solid var(--line); }
+.browse__head { margin-bottom: 28px; }
+.browse__title { font-family: var(--f-serif); font-weight: 400; font-size: var(--t-24); line-height: 1.3; }
+.browse__list {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--col-gap);
+  border-top: 1px solid var(--ink);
+}
+.browse__list li { border-bottom: 1px solid var(--line); }
+.browse__list a { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 26px 0; }
+.browse__kr { font-family: var(--f-kr-text); font-weight: 400; font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.3; transition: color .3s, transform .5s var(--ease); }
+.browse__list a:hover .browse__kr { color: var(--bonnet-ink); }
+
+@media (max-width: 767px) {
+  .browse__list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
+  .browse__list a { flex-direction: column; gap: 6px; padding: 20px 0; }
+}
+
+/* ==========================================================================
+   Benefits
+   ========================================================================== */
+.benefits { background: var(--wall-deep); padding: clamp(80px, 9vw, 140px) 0; }
+.benefits__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--col-gap); }
+.benefit { display: flex; flex-direction: column; align-items: flex-start; padding: clamp(32px, 4.4vw, 72px); background: var(--paper); }
+.benefit h2 { margin: 20px 0 16px; font-family: var(--f-kr); font-weight: 300; font-size: clamp(1.6rem, 2.6vw, 2.4rem); line-height: 1.35; letter-spacing: -.015em; }
+.benefit > p:not(.eyebrow) { margin-bottom: 32px; color: var(--ink-2); max-width: 34ch; }
+.benefit .btn, .benefit__apps { margin-top: auto; }
+.benefit__apps { display: flex; flex-wrap: wrap; gap: 10px; }
+
+@media (max-width: 767px) {
+  .benefits__grid { grid-template-columns: 1fr; gap: 14px; }
+  .benefit .btn { width: 100%; }
+  .benefit__apps { width: 100%; }
+  .benefit__apps .btn { flex: 1 1 0; padding: 0 12px; white-space: nowrap; }
+}
+
+/* ==========================================================================
+   About teaser
+   ========================================================================== */
+.teaser { padding: clamp(104px, 12vw, 190px) 0; }
+.teaser__grid { align-items: center; }
+.teaser__media { grid-column: 1 / 7; }
+.teaser__media img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 66% 50%; }
+.teaser__text { grid-column: 8 / 13; }
+.teaser__text h2 { margin: 22px 0 20px; font-family: var(--f-kr); font-weight: 300; font-size: clamp(1.65rem, 2.7vw, 2.55rem); line-height: 1.42; letter-spacing: -.015em; }
+.teaser__text > p:not(.eyebrow) { color: var(--ink-2); }
+.teaser__links { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 36px; }
+
+@media (max-width: 1099px) {
+  .teaser__media { grid-column: 1 / -1; }
+  .teaser__text { grid-column: 1 / 11; margin-top: 48px; }
+}
+@media (max-width: 767px) {
+  .teaser__media { margin-inline: calc(var(--gutter) * -1); }
+  .teaser__text { grid-column: 1 / -1; }
+  .teaser__links .btn { flex: 1 1 auto; }
+}

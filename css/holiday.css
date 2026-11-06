@@ -1,0 +1,131 @@
+/* ==========================================================================
+   PULEV — Holiday season layer
+   Turned on by <html class="theme-holiday">. Remove that class (and the
+   season bar / holiday sections in the HTML) to return to the everyday look.
+   ========================================================================== */
+
+.theme-holiday {
+  --holly: #213A2F;      /* pine green */
+  --holly-2: #2C4A3C;
+  --berry: #8B2C30;      /* cranberry */
+  --gold: #C2A26E;       /* candle gold, on dark */
+
+  /* the everyday blue accent becomes cranberry / gold for the season */
+  --bonnet: var(--gold);
+  --bonnet-ink: var(--berry);
+
+  --bar-h: 34px;
+  --header-h: 106px;
+}
+@media (max-width: 767px) {
+  .theme-holiday { --bar-h: 30px; --header-h: 88px; }
+}
+
+/* ---------- season bar (top of every page) ---------- */
+.season-bar {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  height: var(--bar-h); margin: 0; padding: 0 var(--gutter);
+  background: var(--holly); color: var(--paper);
+  font-size: 12.5px; letter-spacing: .02em; white-space: nowrap; overflow: hidden;
+}
+.season-bar__link { padding-bottom: 1px; border-bottom: 1px solid rgba(244, 241, 238, .5); }
+.season-bar__link:hover { border-color: var(--paper); }
+.season-bar__short { display: none; }
+@media (max-width: 767px) {
+  .season-bar { gap: 8px; font-size: 12px; }
+  .season-bar__label, .season-bar__long { display: none; }
+  .season-bar__short { display: inline; }
+}
+
+/* ---------- falling snow (canvas added by snow.js) ---------- */
+.snow { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+/* brand hero on phones / portrait tablets: photo sits in the flow, so the snow goes on top */
+@media (max-width: 767px), (max-width: 1099px) and (orientation: portrait) {
+  .hero > .snow { z-index: 1; }
+}
+
+/* ---------- home: holiday hero ---------- */
+/* a pine-green panel for the words, the campaign photo beside it; snow falls over both */
+.holiday {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-areas: "text media";
+  min-height: calc(100svh - var(--header-h));
+  background: var(--holly); color: var(--paper);
+}
+.holiday > .snow { z-index: 1; }
+.holiday__media { grid-area: media; position: relative; display: block; overflow: hidden; }
+.holiday__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 46% 40%; }
+.holiday__media::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, var(--holly) 0%, rgba(33, 58, 47, 0) 20%);
+}
+.holiday__content.container {
+  grid-area: text; align-self: center;
+  width: auto; margin: 0;
+  padding: clamp(48px, 6vw, 88px) clamp(28px, 4vw, 64px) clamp(48px, 6vw, 88px) var(--gutter);
+}
+.holiday__eyebrow { color: var(--gold); }
+.holiday__title {
+  font-family: var(--f-serif); font-weight: 400;
+  font-size: clamp(var(--t-36), 4.6vw, var(--t-72)); line-height: 1.25; letter-spacing: -.025em;
+}
+.holiday__lead { max-width: 34ch; margin-top: 28px; color: rgba(244, 241, 238, .82); }
+.holiday__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; margin-top: 34px; }
+
+.holiday__title, .holiday__lead, .holiday__actions {
+  opacity: 0; transform: translateY(18px);
+  animation: holiday-in 1.2s var(--ease) forwards;
+}
+.holiday__title { animation-delay: .2s; }
+.holiday__lead { animation-delay: .45s; }
+.holiday__actions { animation-delay: .6s; }
+@keyframes holiday-in { to { opacity: 1; transform: none; } }
+
+/* tablet & phone: photo on top, green panel below */
+@media (max-width: 1099px) {
+  .holiday { grid-template-columns: minmax(0, 1fr); grid-template-areas: "media" "text"; min-height: 0; }
+  .holiday__media { height: 60svh; min-height: 360px; max-height: 640px; }
+  .holiday__media::after { background: linear-gradient(0deg, var(--holly) 0%, rgba(33, 58, 47, 0) 28%); }
+  .holiday__content.container { padding: 8px var(--gutter) 48px; margin-top: -40px; position: relative; }
+}
+@media (max-width: 767px) {
+  .holiday__media { height: 52svh; }
+  .holiday__media img { object-position: 50% 30%; }
+  .holiday__actions .btn { flex: 1 1 auto; }
+}
+
+/* ---------- home: gift guide ---------- */
+.gift-guide { padding: clamp(96px, 12vw, 176px) 0 clamp(64px, 8vw, 120px); }
+.gift-row {
+  display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: var(--col-gap);
+  padding: clamp(40px, 5vw, 72px) 0;
+  border-top: 1px solid var(--line);
+}
+.gift-row__head { padding-top: 6px; }
+.gift-row__title { font-family: var(--f-serif); font-weight: 400; font-size: clamp(var(--t-24), 2.4vw, var(--t-36)); line-height: 1.3; letter-spacing: -.015em; color: var(--berry); }
+.gift-row__note { margin-top: 14px; max-width: 24ch; font-size: 14px; color: var(--ink-2); }
+.gift-row .product-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px var(--col-gap); }
+.gift-guide__foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 32px; padding-top: 32px; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-2); }
+
+@media (max-width: 1099px) {
+  .gift-row { grid-template-columns: minmax(0, 1fr); row-gap: 28px; }
+  .gift-row__note { max-width: 40ch; }
+}
+@media (max-width: 767px) {
+  .gift-row .product-grid {
+    display: flex; gap: 14px;
+    margin-inline: calc(var(--gutter) * -1); padding: 0 var(--gutter) 4px;
+    overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none;
+  }
+  .gift-row .product-grid::-webkit-scrollbar { display: none; }
+  .gift-row .product { flex: 0 0 62%; scroll-snap-align: start; }
+}
+
+/* ---------- product page: gift-box hint ---------- */
+.pdp__holiday { margin: -2px 0 12px; font-size: 13px; color: var(--berry); }
+
+@media (prefers-reduced-motion: reduce) {
+  .holiday__title, .holiday__lead, .holiday__actions { opacity: 1; transform: none; animation: none; }
+}
