@@ -48,7 +48,7 @@
 }
 .showing__kr {
   display: inline-flex; gap: .5em; margin-top: 26px; padding-bottom: 4px;
-  font-size: 14px; font-weight: 500; letter-spacing: .02em;
+  font-size: 15px; font-weight: 600; letter-spacing: 0;
   border-bottom: 1px solid currentColor;
   transition: color .3s;
 }
@@ -65,7 +65,7 @@
 .showing__btn svg { width: 16px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.2; }
 
 
-.showing__next { font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+.showing__next { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
 
 /* tablet & phone: photo first, words below */
 @media (max-width: 1099px) {
@@ -100,13 +100,13 @@
 }
 .launch__date span {
   display: block; margin-top: 12px;
-  font-family: var(--f-body); font-size: 13px; font-weight: 500; letter-spacing: .02em; color: var(--ink-2);
+  font-family: var(--f-body); font-size: 14px; font-weight: 500; letter-spacing: 0; color: var(--ink-2);
 }
-.launch__title { margin-top: 6px; font-family: var(--f-kr-text); font-weight: 400; font-size: 19px; line-height: 1.45; }
+.launch__title { margin-top: 6px; font-family: var(--f-sans); font-weight: 600; font-size: 18px; line-height: 1.45; letter-spacing: -.01em; }
 .launch__title .label__brand { display: block; margin-bottom: 6px; }
 .launch__status {
   margin-top: 6px; padding: 3px 11px;
-  font-size: 12px; font-weight: 500;
+  font-size: 13px; font-weight: 600;
   color: var(--bonnet-ink); border: 1px solid currentColor; border-radius: 999px;
 }
 .launch.is-open .launch__status { color: var(--paper); background: var(--ink); border-color: var(--ink); }
@@ -141,13 +141,13 @@
 .shop__tabs [role="tab"] {
   position: relative; flex: none;
   padding: 0 0 18px;
-  font-family: var(--f-kr-text); font-weight: 400; font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  font-family: var(--f-sans); font-weight: 600; font-size: clamp(1rem, 1.25vw, 1.125rem); letter-spacing: -.01em;
   color: var(--ink-2); text-align: left;
   transition: color .3s;
 }
 .shop__tabs [role="tab"] span {
-  display: block; margin-top: 6px;
-  font-family: var(--f-wide); font-weight: 500; font-size: 12px;
+  display: block; margin-top: 4px;
+  font-family: var(--f-wide); font-weight: 400; font-size: 13px;
 }
 .shop__tabs [role="tab"]::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
@@ -160,7 +160,7 @@
 .shop__panel:focus-visible { outline-offset: 12px; }
 .shop__panel:not([hidden]) { animation: panel-in .7s var(--ease); }
 @keyframes panel-in { from { opacity: 0; transform: translateY(10px); } }
-.shop__note { margin-bottom: clamp(32px, 4vw, 56px); font-size: 14px; color: var(--ink-2); }
+.shop__note { margin-bottom: clamp(32px, 4vw, 56px); font-size: 15px; color: var(--ink-2); }
 
 /* product cards (.product-grid, .product) live in style.css — shared with the detail page */
 
@@ -169,7 +169,7 @@
 @media (max-width: 767px) {
   /* four tabs must fit one phone row: Korean names only */
   .shop__tabs { gap: 22px; }
-  .shop__tabs [role="tab"] { padding-bottom: 14px; font-size: 1.05rem; }
+  .shop__tabs [role="tab"] { padding-bottom: 14px; font-size: 1rem; }
   .shop__tabs [role="tab"] span { display: none; }
 }
 
